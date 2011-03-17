@@ -347,7 +347,7 @@ class Form extends RequestHandler {
 	 * @return FormField
 	 */
 	function handleField($request) {
-		$field = $this->dataFieldByName($request->param('FieldName'));
+		$field = $this->Fields()->dataFieldByName($request->param('FieldName'));
 		
 		if($field) {
 			return $field;
@@ -512,21 +512,6 @@ class Form extends RequestHandler {
 	function setFields($fields) {
 		$this->fields = $fields;
 	}
-	
-	/**
-	 * Get a named field from this form's fields.
-	 * It will traverse into composite fields for you, to find the field you want.
-	 * It will only return a data field.
-	 * 
-	 * @return FormField
-	 */
-	function dataFieldByName($name) {
-		foreach($this->getExtraFields() as $field) {
-			if(!$this->fields->dataFieldByName($field->Name())) $this->fields->push($field);
-		}
-		
-		return $this->fields->dataFieldByName($name);
-	}
 
 	/**
 	 * Return the form's action buttons - used by the templates
@@ -560,26 +545,6 @@ class Form extends RequestHandler {
 	 */
 	function unsetActionByName($name) {
 		$this->actions->removeByName($name);
-	}
-
-	/**
-	 * Unset the form's dataField by its name
-	 */
-	function unsetDataFieldByName($fieldName){
-		foreach($this->Fields()->dataFields() as $child) {
-			if(is_object($child) && ($child->Name() == $fieldName || $child->Title() == $fieldName)) {
-				$child = null;
-			}
-		}
-	}
-	
-	/**
-	 * Remove a field from the given tab.
-	 */
-	public function unsetFieldFromTab($tabName, $fieldName) {
-		// Find the tab
-		$tab = $this->Fields()->findOrMakeTab($tabName);
-		$tab->removeByName($fieldName);
 	}
 
 	/**
@@ -1047,22 +1012,6 @@ class Form extends RequestHandler {
 		return $data;
 	}
 
-	/**
-	 * Resets a specific field to its passed default value.
-	 * Does NOT clear out all submitted data in the form.
-	 * 
-	 * @param string $fieldName
-	 * @param mixed $fieldValue
-	 */
-	function resetField($fieldName, $fieldValue = null) {
-		$dataFields = $this->fields->dataFields();
-		if($dataFields) foreach($dataFields as $field) {
-			if($field->Name()==$fieldName) {
-				$field = $field->setValue($fieldValue);
-			}
-		}
-	}
-	
 	/**
 	 * Call the given method on the given field.
 	 * This is used by Ajax-savvy form fields.  By putting '&action=callfieldmethod' to the end

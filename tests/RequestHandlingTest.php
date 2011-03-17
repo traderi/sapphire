@@ -446,7 +446,7 @@ class RequestHandlingTest_Form extends Form {
 	);
 	
 	function handleField($request) {
-		return $this->dataFieldByName($request->param('FieldName'));
+		return $this->Fields()->dataFieldByName($request->param('FieldName'));
 	}
 	
 	function handleSubmission($request) {
