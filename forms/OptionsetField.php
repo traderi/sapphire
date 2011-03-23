@@ -67,8 +67,7 @@ class OptionsetField extends DropdownField {
 		$options = array();
 		if($source) {
 			foreach($source as $value => $title) {
-				$itemID = $this->id() . '_' . ereg_replace('[^a-zA-Z0-9]+', '', $value);
-				$checked = $value == $this->value;
+				$itemID = $this->ID() . '_' . preg_replace('/[^a-zA-Z0-9]/', '', $value);
 				$odd = ($odd + 1) % 2;
 				$extraClass = $odd ? 'odd' : 'even';
 				$extraClass .= ' val' . preg_replace('/[^a-zA-Z0-9\-\_]/', '_', $value);
@@ -79,14 +78,13 @@ class OptionsetField extends DropdownField {
 					'Name' => $this->name,
 					'Value' => $value,
 					'Title' => $title,
-					'isChecked' => $checked,
+					'isChecked' => $value == $this->value,
 					'isDisabled' => $this->disabled || in_array($value, $this->disabledItems),
 				));
 			}
 		}
 
 		if(!$attributes) $attributes = array(
-			'Class' => 'optionset' . ($this->extraClass() ? $this->extraClass() : ''),
 			'Options' => new DataObjectSet($options)
 		);
 
