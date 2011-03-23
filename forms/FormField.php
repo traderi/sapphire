@@ -208,17 +208,10 @@ class FormField extends RequestHandler {
 	}
 
 	/**
-	 * @deprecated 3.0 Please use {@link TabIndex()} instead!
-	 */
-	public function getTabIndex() {
-		return $this->TabIndex();
-	}
-
-	/**
 	 * Get tabindex (if previously set)
 	 * @return int
 	 */
-	public function TabIndex() {
+	public function getTabIndex() {
 		return $this->tabIndex;
 	}
 
