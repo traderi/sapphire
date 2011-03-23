@@ -45,6 +45,14 @@ JS;
 	}
 
 	/**
+	 * Returns the field type - used by templates.
+	 * @return string
+	 */
+	function Type() {
+		return 'text';
+	}
+
+	/**
 	 * Validates for RFC 2822 compliant email adresses.
 	 * 
 	 * @see http://www.regular-expressions.info/email.html
