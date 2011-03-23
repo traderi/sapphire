@@ -39,7 +39,11 @@ if(typeof fromAnOnBlur != 'undefined'){
 }
 JS;
 	}
-	
+
+	public function Field($attributes = array()) {
+		return $this->customise($attributes)->renderWith('TextField');
+	}
+
 	/**
 	 * Validates for RFC 2822 compliant email adresses.
 	 * 
