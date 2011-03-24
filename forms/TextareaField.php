@@ -44,6 +44,7 @@ class TextareaField extends FormField {
 		if(!$attributes) $attributes = array(
 			'Rows' => $this->rows,
 			'Cols' => $this->cols,
+			'Value' => htmlentities($this->value, ENT_COMPAT, 'UTF-8')
 		);
 
 		return $this->customise($attributes)->renderWith('TextareaField');
