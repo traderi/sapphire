@@ -370,7 +370,7 @@ class FormField extends RequestHandler {
 	 * This must be overloaded on your FormField subclass.
 	 * 
 	 * @param array $attributes key value pairs of template variables
-	 * @return SSViewer
+	 * @return string
 	 */
 	function Field($attributes = array()) {
 		return $this->customise($attributes)->renderWith('FormField');
@@ -384,7 +384,7 @@ class FormField extends RequestHandler {
 	 * @see FieldHolder.ss
 	 * 
 	 * @param array $attributes key value pairs of template variables
-	 * @return SSViewer
+	 * @return string
 	 */
 	function FieldHolder($attributes = array()) {
 		return $this->customise($attributes)->renderWith(
