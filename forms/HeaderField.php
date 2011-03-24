@@ -29,17 +29,13 @@ class HeaderField extends DatalessField {
 		
 		parent::__construct($name, $title, null, $form);
 	}
-	
-	function Field() {
-		$attributes = array(
-			'class' => $this->extraClass(),
-			'id' => $this->id()
-		);
-		return $this->createTag(
-			"h{$this->headingLevel}",
-			$attributes,
-			($this->getAllowHTML() ? $this->title : Convert::raw2xml($this->title))
-		);
+
+	public function getHeadingLevel() {
+		return $this->headingLevel;
 	}
+	
+	function Field($attributes = array()) {
+		return $this->customise($attributes)->renderWith('HeaderField');
+	}
+
 }
-?>
