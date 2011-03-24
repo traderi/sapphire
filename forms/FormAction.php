@@ -85,6 +85,10 @@ class FormAction extends FormField {
 		return $this->customise($attributes)->renderWith('FormAction');
 	}
 
+	public function Type() {
+		return ($this->useButtonTag) ? 'button' : 'submit';
+	}
+
 	/**
 	 * Does not transform to readonly by purpose.
 	 * Globally disabled buttons would break the CMS.
