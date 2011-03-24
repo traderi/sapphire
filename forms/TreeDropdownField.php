@@ -108,11 +108,15 @@ class TreeDropdownField extends FormField {
 		
 		$this->searchCallback = $callback;
 	}
-	
+
+	public function getShowSearch() {
+		return $this->showSearch;
+	}
+
 	/**
 	 * @return string
 	 */
-	public function Field() {
+	public function Field($attributes = array()) {
 		Requirements::add_i18n_javascript(SAPPHIRE_DIR . '/javascript/lang');
 		
 		Requirements::javascript(SAPPHIRE_DIR . '/thirdparty/prototype/prototype.js');
@@ -132,47 +136,12 @@ class TreeDropdownField extends FormField {
 		} else {
 			$title = _t('DropdownField.CHOOSE', '(Choose)', PR_MEDIUM, 'start value of a dropdown');
 		}
-		
-		return $this->createTag (
-			'div',
-			array (
-				'id'    => "TreeDropdownField_{$this->id()}",
-				'class' => 'TreeDropdownField single' . ($this->extraClass() ? " {$this->extraClass()}" : ''),
-				'href' => $this->form ? $this->Link() : "",
-			),
-			$this->createTag (
-				'input',
-				array (
-					'id'    => $this->id(),
-					'type'  => 'hidden',
-					'name'  => $this->name,
-					'value' => $this->value
-				)
-			) . ($this->showSearch ?
-					$this->createTag(
-						'input',
-						array(
-							'class' => 'items',
-							'value' => '(Choose or type search)' 
-						)
-					) :
-					$this->createTag (
-						'span',
-						array (
-							'class' => 'items'
-						),
-						$title
-					)
-			) . $this->createTag (
-				'a',
-				array (
-					'href'  => '#',
-					'title' => 'open',
-					'class' => 'editLink'
-				),
-				'&nbsp;'
-			)
+
+		if(!$attributes) $attributes = array(
+			'Title' => $title
 		);
+
+		return $this->customise($attributes)->renderWith('TreeDropdownField');
 	}
 	
 	/**
