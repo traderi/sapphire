@@ -83,10 +83,7 @@ class NullableField extends FormField {
 		}
 		$nullableCheckbox->setValue(is_null($this->dataValue()));
 
-		$valueFieldHTML = ($this->valueField->Field() instanceof SSViewer) ? $this->valueField->Field()->forTemplate() : $this->valueField->Field();
-		$nullableCheckboxHTML = ($nullableCheckbox instanceof SSViewer) ? $nullableCheckbox->Field()->forTemplate() : $nullableCheckbox->Field();
-
-		return $valueFieldHTML . ' ' . $nullableCheckboxHTML . '&nbsp;<span>' . $this->getIsNullLabel().'</span>';
+		return $this->valueField->Field() . ' ' . $nullableCheckbox->Field() . '&nbsp;<span>' . $this->getIsNullLabel().'</span>';
 	}
 
 	/**
