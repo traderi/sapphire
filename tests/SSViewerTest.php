@@ -8,26 +8,9 @@ class SSViewerTest extends SapphireTest {
 	 * when no user themes are defined.
 	 */
 	function testCurrentTheme() {
-		$config = SiteConfig::current_site_config();
-		$oldTheme = $config->Theme;
-		$config->Theme = '';
-		$config->write();
-		
+		//TODO: SiteConfig moved to CMS 
 		SSViewer::set_theme('mytheme');
 		$this->assertEquals('mytheme', SSViewer::current_theme(), 'Current theme is the default - user has not defined one');
-
-		$config->Theme = 'myusertheme';
-		$config->write();
-
-		// Pretent to load the page
-		$c = new ContentController();
-		$c->handleRequest(new SS_HTTPRequest('GET', '/'));
-
-		$this->assertEquals('myusertheme', SSViewer::current_theme(), 'Current theme is a user defined one');
-
-		// Set the theme back to the original
-		$config->Theme = $oldTheme;
-		$config->write();
 	}
 	
 	/**
@@ -499,6 +482,38 @@ after')
 			)
 		);
 	}
+
+	/**
+	 * @covers SSViewer::get_themes()
+	 */
+	function testThemeRetrieval() {
+		$ds = DIRECTORY_SEPARATOR;
+		$testThemeBaseDir = TEMP_FOLDER . $ds . 'test-themes';
+
+		if(file_exists($testThemeBaseDir)) Filesystem::removeFolder($testThemeBaseDir);
+
+		mkdir($testThemeBaseDir);
+		mkdir($testThemeBaseDir . $ds . 'blackcandy');
+		mkdir($testThemeBaseDir . $ds . 'blackcandy_blog');
+		mkdir($testThemeBaseDir . $ds . 'darkshades');
+		mkdir($testThemeBaseDir . $ds . 'darkshades_blog');
+
+		$this->assertEquals(array(
+			'blackcandy' => 'blackcandy',
+			'darkshades' => 'darkshades'
+		), SSViewer::get_themes($testThemeBaseDir), 'Our test theme directory contains 2 themes');
+
+		$this->assertEquals(array(
+			'blackcandy' => 'blackcandy',
+			'blackcandy_blog' => 'blackcandy_blog',
+			'darkshades' => 'darkshades',
+			'darkshades_blog' => 'darkshades_blog'
+		), SSViewer::get_themes($testThemeBaseDir, true), 'Our test theme directory contains 2 themes and 2 sub-themes');
+
+		// Remove all the test themes we created
+		Filesystem::removeFolder($testThemeBaseDir);
+	}
+
 }
 
 /**
@@ -559,4 +574,9 @@ class SSViewerTest_ViewableData extends ViewableData implements TestOnly {
 	function methodWithTwoArguments($arg1, $arg2) {
 		return "arg1:{$arg1},arg2:{$arg2}";
 	}
+}
+
+
+class SSViewerTest_Controller extends Controller {
+	
 }

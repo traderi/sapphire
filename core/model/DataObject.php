@@ -2371,6 +2371,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 
 					$groupList = implode(', ', $groups->column("ID"));
 
+					// TODO Fix relation table hardcoding
 					$query = new SQLQuery(
 						"\"Page_Can$perm\".PageID",
 					array("\"Page_Can$perm\""),
@@ -2379,6 +2380,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 					$permissionCache[$memberID][$perm] = $query->execute()->column();
 
 					if($perm == "View") {
+						// TODO Fix relation table hardcoding
 						$query = new SQLQuery("\"SiteTree\".\"ID\"", array(
 							"\"SiteTree\"",
 							"LEFT JOIN \"Page_CanView\" ON \"Page_CanView\".\"PageID\" = \"SiteTree\".\"ID\""
@@ -2605,8 +2607,10 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 			// Get the tables to join to
 			$tableClasses = ClassInfo::dataClassesFor($this->class);
 			if(!$tableClasses) {
-				if(!ManifestBuilder::has_been_included()) {
-					user_error("DataObjects have been requested before the manifest is loaded. Please ensure you are not querying the database in _config.php.", E_USER_ERROR);
+				if (!DB::getConn()) {
+					throw new Exception('DataObjects have been requested before'
+						. ' a DB connection has been made. Please ensure you'
+						. ' are not querying the database in _config.php.');
 				} else {
 					user_error("DataObject::buildSQL: Can't find data classes (classes linked to tables) for $this->class. Please ensure you run dev/build after creating a new DataObject.", E_USER_ERROR);
 				}
