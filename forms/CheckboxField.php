@@ -22,9 +22,8 @@ class CheckboxField extends FormField {
 		return $this->customise($attributes)->renderWith('CheckboxField');
 	}
 
-	function FieldHolder() {
-		$this->setFieldHolderTemplate(($this->fieldHolderTemplate) ? $this->fieldHolderTemplate : 'CheckboxFieldHolder');
-		return parent::FieldHolder();
+	function FieldHolder($attributes = array()) {
+		return $this->customise($attributes)->renderWith('CheckboxFieldHolder');
 	}
 
 	/**

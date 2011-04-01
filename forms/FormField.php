@@ -74,12 +74,6 @@ class FormField extends RequestHandler {
 	protected $customValidationMessage = "";
 
 	/**
-	 * Template name to render this FormField field holder into.
-	 * @var string
-	 */
-	protected $fieldHolderTemplate;
-
-	/**
 	 * Create a new field.
 	 * @param name The internal field name, passed to forms.
 	 * @param title The field label.
@@ -316,14 +310,6 @@ class FormField extends RequestHandler {
 		return $this->form; 
 	}
 
-	public function getFieldHolderTemplate() {
-		return $this->fieldHolderTemplate;
-	}
-
-	public function setFieldHolderTemplate($template) {
-		$this->fieldHolderTemplate = $template;
-	}
-
 	/**
 	 * Return TRUE if security token protection is enabled on the parent {@link Form}.
 	 *
@@ -387,9 +373,7 @@ class FormField extends RequestHandler {
 	 * @return string
 	 */
 	function FieldHolder($attributes = array()) {
-		return $this->customise($attributes)->renderWith(
-			($this->fieldHolderTemplate) ? $this->fieldHolderTemplate : 'FieldHolder'
-		);
+		return $this->customise($attributes)->renderWith('FieldHolder');
 	}
 
    /**
