@@ -95,8 +95,8 @@
 			},
 			
 			afterLoad: function(data, status, xhr) {
-				this.removeClass('loading');
 				this.replaceWith(data);
+				this.removeClass('loading');
 			},
 		
 			/**

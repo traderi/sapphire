@@ -36,7 +36,7 @@
 		 * Events:
 		 *  ajaxsubmit - ...
 		 *  validate - ...
-		 *  loadnewpage - ...
+		 *  reloadeditform - ...
 		 */
 		$('.cms-container').entwine({
 			
@@ -67,7 +67,9 @@
 				$('body').removeClass('loading');
 				$(window).unbind('resize', positionLoadingSpinner);
 
-				$('.cms-edit-form').live('loadnewpage', function() {self.redraw()});
+				$('.cms-edit-form').live('reloadeditform', function() {
+					self.redraw();
+				});
 				
 				 History.Adapter.bind(window,'statechange',function(){ 
 					self.handleStateChange();
@@ -270,7 +272,7 @@
 			onmatch: function() {
 				this._super();
 				
-				$('.cms-edit-form').bind('loadnewpage delete', function(e) {
+				$('.cms-edit-form').bind('reloadeditform delete', function(e) {
 					var updatedSwitchView = $('#AjaxSwitchView');
 					if(updatedSwitchView.length) {
 						$('#SwitchView').html(updatedSwitchView.html());

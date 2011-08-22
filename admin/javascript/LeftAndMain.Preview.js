@@ -31,7 +31,7 @@
 				self._fixIframeLinks();
 				
 				// Limit to CMS forms for the moment
-				$('.cms-edit-form').bind('loadnewpage', function(e, ui) {
+				$('.cms-edit-form').bind('reloadeditform', function(e, ui) {
 					// var url = ui.xmlhttp.getResponseHeader('x-frontend-url');
 					var url = $(this).find(':input[name=StageURLSegment]').val();
 					if(url) self.loadUrl(url + '&cms-preview-disabled=1');
