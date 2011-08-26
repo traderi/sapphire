@@ -1,14 +1,22 @@
 /**
  * File: LeftAndMain.js
+ *
+ * Base level functionality for all ss ui admin panels.
  */
 (function($) {
 
 	$.metadata.setType('html5');
 	
-	$.entwine('ss', function($){
+	$.entwine('ss', function($) {
+		/**
+		 * Var: warningLevel
+		 */
+		$.entwine.warningLevel = $.entwine.WARN_LEVEL_BESTPRACTISE;
 		
 		/**
-		 * Position the loading spinner animation below the ss logo
+		 * Function: positionLoadingSpinner
+		 *
+		 * Positions the loading spinner animation below the ss logo
 		 */ 
 		var positionLoadingSpinner = function() {
 			var offset = 120; // offset from the ss logo
@@ -17,15 +25,20 @@
 			spinner.css('top', top + offset);
 			spinner.show();
 		}
+		
 		$(window).bind('resize', positionLoadingSpinner).trigger('resize');
-	
-		// setup jquery.entwine
-		$.entwine.warningLevel = $.entwine.WARN_LEVEL_BESTPRACTISE;
-	
-		// global ajax error handlers
+
+		/**
+		 * Global ajax error handler. 
+		 */
 		$.ajaxSetup({
 			error: function(xmlhttp, status, error) {
-				var msg = (xmlhttp.getResponseHeader('X-Status')) ? xmlhttp.getResponseHeader('X-Status') : xmlhttp.statusText;
+				var msg = xmlhttp.statusText;
+				
+				if(xmlhttp.getResponseHeader('X-Status')) {
+					msg = xmlhttp.getResponseHeader('X-Status');
+				}
+				
 				statusMessage(msg, 'bad');
 			}
 		});
@@ -77,10 +90,17 @@
 
 				this._super();
 			},
-			
+			/**
+			 * Function redraw
+			 *
+			 * Redraws the multicolumn layout. Will usually need to be called
+			 * after reloading or loading new forms into a cms-panel to ensure
+			 * they have been scaled correctly
+			 */
 			redraw: function() {
 				// Not all edit forms are layouted
 				var editForm = $('.cms-edit-form[data-layout]').layout();
+				
 				$('.cms-content').layout();
 				$('.cms-container').layout({resize: false})
 			},
