@@ -1,7 +1,10 @@
 /**
  * This file contains the default theme definitions for the admin interface.
- * Please put mostly SCSS variable definitions in here,
- * and leave the actual styling to _style.scss and auxilliary files.
+ *
+ * Please put mostly SCSS variable definitions in here, and leave the actual 
+ * styling to _style.scss and auxilliary files.
+ *
+ * For admin interface helpers see _mixins.scss
  */
 
 /** -----------------------------------------------
@@ -44,8 +47,8 @@ $color-button-destructive: #f00;
 $color-button-disabled: #eeeded;
 
 $color-warning: #FF9300;
-$color-error: #FF9300;
-$color-notice: #FF9300;
+$color-error: #a52429;
+$color-notice: #bfcbd3;
 
 $color-cms-batchactions-menu-background: #f5f5f5;
 $color-cms-batchactions-menu-selected-background: #efe999;

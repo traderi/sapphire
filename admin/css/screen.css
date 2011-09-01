@@ -18,7 +18,7 @@ a img { border: none; }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary { display: block; }
 
 /** ----------------------------- Theme ------------------------------ */
-/** This file contains the default theme definitions for the admin interface. Please put mostly SCSS variable definitions in here, and leave the actual styling to _style.scss and auxilliary files. */
+/** This file contains the default theme definitions for the admin interface.  Please put mostly SCSS variable definitions in here, and leave the actual  styling to _style.scss and auxilliary files.  For admin interface helpers see _mixins.scss */
 /** ----------------------------------------------- Colours ------------------------------------------------ */
 /** ----------------------------------------------- Textures ----------------------------------------------- */
 /** ----------------------------------------------- Typography.  ------------------------------------------------ */
@@ -59,8 +59,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .cms h4 { font-size: 14px; }
 .cms h5 { font-size: 12px; }
 .cms p { line-height: 16px; margin-bottom: 16px; }
-.cms ins { background-color: #DFD; border: 1px solid #aaffaa; padding: 2px; text-decoration: none; }
-.cms del { background-color: #FDD; padding: 2px; color: #ff4444; border: 1px solid #ffaaaa; }
+.cms ins { background-color: #DFD; padding: 2px; text-decoration: none; }
+.cms del { background-color: #FDD; padding: 2px; color: #ff4444; }
 .cms code { font-family: 'Bitstream Vera Sans Mono','Courier', monospace; }
 
 /** This file defines the jstree base styling (see http://jstree.com), as well as any customizations (see bottom of file).  The styles are usually added through jstree.js on DOM load,  but we need it earlier in order to correctly display the uninitialized tree. */
@@ -327,10 +327,11 @@ html article, html aside, html details, html figcaption, html figure, html foote
 
 /** -------------------------------------------- Messages -------------------------------------------- */
 .message { margin: 0 0 8px 0; padding: 7px 7px; font-weight: bold; border: 1px black solid; }
-.message.notice { background-color: #ffbe66; border-color: #ff9300; }
+.message.notice { background-color: #fbfcfd; border-color: #bfcbd3; }
 .message.notice a { color: #999; }
 .message.warning { background-color: #ffbe66; border-color: #ff9300; }
-.message.error { background-color: #ffbe66; border-color: #ff9300; }
+.message.error { background-color: #da555a; border-color: #a52429; }
+.message p { margin: 0; }
 
 /** -------------------------------------------- ModelAdmin -------------------------------------------- */
 .ModelAdmin .ResultAssemblyBlock { display: none; }
